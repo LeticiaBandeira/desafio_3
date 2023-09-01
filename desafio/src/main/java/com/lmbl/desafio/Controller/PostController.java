@@ -1,6 +1,9 @@
 package com.lmbl.desafio.Controller;
 
+import com.lmbl.desafio.Post.Post;
+import com.lmbl.desafio.Post.PostRecordDTO;
 import com.lmbl.desafio.Repository.PostRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
