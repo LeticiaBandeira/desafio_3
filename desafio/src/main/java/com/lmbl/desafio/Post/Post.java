@@ -1,11 +1,14 @@
 package com.lmbl.desafio.Post;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.lmbl.desafio.Comment.Comment;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Table
 @Entity
@@ -21,7 +24,6 @@ public class Post {
 
     private String title;
     private String body;
-
 
 
 }

@@ -1,12 +1,17 @@
 package com.lmbl.desafio.Comment;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.lmbl.desafio.Post.Post;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-    @Table
+import java.util.Set;
+
+@Table
     @Entity
     @Getter
     @Setter
@@ -16,10 +21,15 @@ import lombok.*;
     public class Comment {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id_comment")
         private Long id;
         private String body;
 
-
+@ManyToOne(fetch = FetchType.LAZY, optional = false)
+@JoinColumn(name = "fk_post", nullable = false)
+@OnDelete(action = OnDeleteAction.CASCADE)
+@JsonIgnore
+    private Post post;
 
     }

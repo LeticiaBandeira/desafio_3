@@ -21,6 +21,9 @@ public class CommentController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping("/comments")
     public ResponseEntity<List<Comment>> getAllComments() {
         return ResponseEntity.status(HttpStatus.OK).body(commentRepository.findAll());
@@ -62,4 +65,18 @@ public class CommentController {
         BeanUtils.copyProperties(commentRecordDTO, commentObj);
         return ResponseEntity.status(HttpStatus.CREATED).body(commentRepository.save(commentObj));
     }
+
+    @PostMapping("/posts/{postId}/comments")
+    public ResponseEntity<Comment> createComment(@PathVariable(value = "postId") Long postId,
+                                                 @RequestBody Comment commentRequest) {
+        Comment comment = postRepository.findById(postId).map(post -> {
+            commentRequest.setPost(post);
+            return commentRepository.save(commentRequest);
+        }).orElseThrow();
+
+        return new ResponseEntity<>(comment, HttpStatus.CREATED);
+    }
+
+
+
 }
